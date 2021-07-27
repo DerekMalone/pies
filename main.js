@@ -86,20 +86,30 @@ const pies = [
       return array.filter(pieObject => pieObject.instructor === instructor);
   }
 
-  // Function that adds an event listener to each button
+  // Function that adds an event listener to each button and calls funtions when called.
   const handleButtonClick = (event) => {
-      if (event.target.id === "All") {  
-        console.log("The All Button");
+    
+    const pieArray = filterPies(pies, event.target.id)
+    if (event.target.id === "All" || event.target.id ==="buttonContainer") {  
+        pieBuilder(pies);
+      } else {
+          pieBuilder(filterPies(pies, event.target.id))
       }
-      if (event.target.id === "Trinity") {
-          console.log("Trinity's Button");
-      }
-      if (event.target.id === "Aja") {
-          console.log("Aja's Button");
-      }
-      if (event.target.id === "Doc") {
-          console.log("Doc's Button");
-      }
+
+    /*  The code above does this as well but is a shortger solution  
+    //   if (event.target.id === "All") {
+    //     pieBuilder(pies);
+    //   }
+    //   if (event.target.id === "Trinity") {
+    //     pieBuilder(filterPies(pies, "Trinity"));
+    //   }
+    //   if (event.target.id === "Aja") {
+    //     pieBuilder(filterPies(pies, "Aja"));
+    //   }
+    //   if (event.target.id === "Doc") {
+    //     pieBuilder(filterPies(pies, "Doc"));   
+         }
+    */
   }
 
   // Function that passes html to the DOM
