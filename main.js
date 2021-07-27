@@ -89,6 +89,7 @@ const pies = [
   // Function that adds an event listener to each button
   const handleButtonClick = (event) => {
       if (event.target.id === "All") {  
+        
         console.log("The All Button");
       }
       if (event.target.id === "Trinity") {
