@@ -11,3 +11,7 @@ body {
 .card, .btn {
     margin: 10px;
 }
+
+form {
+    margin: 10px;
+}
