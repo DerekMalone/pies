@@ -125,6 +125,7 @@ const pies = [
         renderToDom("#pieForm", domString);
       };
 
+      //Takes info passed into the form and pushes it into the array
       const handleFormSubmit = (event) => {
         event.preventDefault();
 
@@ -141,6 +142,18 @@ const pies = [
 
           pies.push(newPie)
           pieBuilder(pies);
+      };
+
+      //Deletes a specific pie in the array
+      const deletePie = (event) => {
+        
+        const targetType = event.target.type
+        const targetId = event.target.id
+
+        if(targetType === "button") {
+          pies.splice(targetId, 1);
+          pieBuilder(pies);
+        }
       };
 
       const pieFormEvents = () => {
@@ -182,14 +195,14 @@ const pies = [
   // Function that passes html to the DOM
   const pieBuilder = (piesArray) => {
       let domString = "";
-      piesArray.forEach((pie) => {
+      piesArray.forEach((pie, i) => {
           domString += `
           <div class="card" style="width: 18rem;">
           <img src="${pie.imageUrl}" class="card-img-top" alt="${pie.name}">
           <div class="card-body">
             <h5 class="card-title">${pie.name}</h5>
             <p class="card-text">${pie.ingredients}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <button type="button" id="${i}" class="btn btn-primary">Delete</button>
           </div>
         </div>
         `;
@@ -202,6 +215,8 @@ const pies = [
   const buttonEvents = () => {
     document.querySelector('#buttonContainer')
     .addEventListener('click', handleButtonClick);
+    
+    document.querySelector("#piesContainer").addEventListener("click", deletePie);
   }
 
   const init = () => {
