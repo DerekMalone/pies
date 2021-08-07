@@ -1,231 +1,156 @@
-const pies = [
-    {
-      name: 'Dutch Apple Pie',
-      ingredients: 'apples,sugar,butter,nutmeg,dutch people',
-      bakeTemp: 5000,
-      drinkPairing: 'Earl Grey Tea',
-      imageUrl:
-        'https://images-gmi-pmc.edge-generalmills.com/b6a2a4e7-73f5-4aec-9bb6-f2b5054d65e6.jpg',
-      instructor: 'Doc',
-      iceCream: 'Vanilla',
-    },
-    {
-      name: 'Berry Pie',
-      ingredients: 'berries',
-      bakeTemp: 400,
-      drinkPairing: 'wine',
-      imageUrl:
-        'https://tastesbetterfromscratch.com/wp-content/uploads/2015/11/Triple_Berry_Pie8.jpg',
-      instructor: 'Doc',
-      iceCream: 'banana',
-    },
-    {
-      name: 'Pumpkin Pie',
-      ingredients: 'pumpkins, nutmeg, cinnamon, graham crackers, pilgrims',
-      bakeTemp: 42,
-      drinkPairing: 'egg nog',
-      imageUrl:
-        'https://cf-images.us-east-1.prod.boltdns.net/v1/static/1033249144001/22a0c25d-2fee-415c-a4e7-91d008e276bb/a904f3e2-3cd9-40d6-ace9-f8dbd2d616cd/1280x720/match/image.jpg',
-      instructor: 'Aja',
-      iceCream: 'Vanilla',
-    },
-    {
-      name: 'Shoo Fly Pie',
-      ingredients: 'Molasses, nutmeg, cinnamon, butter, graham cracker ',
-      bakeTemp: 1234,
-      drinkPairing: 'Apple Cider',
-      imageUrl:
-        'https://static01.nyt.com/images/2016/09/27/dining/27COOKING-SHOOFLY-PIE2/27COOKING-SHOOFLY-PIE2-articleLarge.jpg',
-      instructor: 'Aja',
-      iceCream: 'Coffee',
-    },
-    {
-      name: 'Pecan Pie',
-      ingredients: 'Pecans, sugar, butter, flour',
-      bakeTemp: 5000,
-      drinkPairing: 'Milk',
-      imageUrl:
-        'https://cookiesandcups.com/wp-content/uploads/2018/10/pecanpie-3.jpg',
-      instructor: 'Trinity',
-      iceCream: 'Vanilla',
-    },
-    {
-      name: 'Keylime Pie',
-      ingredients: 'lemons, sugar, butter, flour',
-      bakeTemp: 5000,
-      drinkPairing: 'Water',
-      imageUrl:
-        'https://www.browneyedbaker.com/wp-content/uploads/2012/05/key-lime-pie-2-1200.jpg',
-      instructor: 'Trinity',
-      iceCream: 'none',
-    },
-  ];
-
-  //const allButtons = document.querySelector('#buttonContainer');
-
-
-  const renderToDom = (divId, textToPrint) => {
-      const selectedDiv = document.querySelector(divId);
-      selectedDiv.innerHTML = textToPrint;
+const houseArray = [
+  {
+      houseName: "Gryffindor",
+      houseId: 1,
+      imageUrl: "https://thenichollsworth.com/wp-content/uploads/2020/11/C0441055-AEE4-4C0D-8F43-A708DDEB6C3B-721x900.jpeg"
+  },
+  {   
+      houseName: "Hufflepuff",
+      houseId: 2,
+      imageUrl: "https://cdn.shopify.com/s/files/1/1541/8579/files/Hufflepuff-harry_potter_large.JPG?v=1491538917"
+  },
+  {
+      houseName: "Ravenclaw",
+      houseId: 3,
+      imageUrl: "https://static.wikia.nocookie.net/hogwartsahistory/images/e/ef/Ravenclaw-crest.jpg/revision/latest?cb=20100819014614"
+  },
+  {
+      houseName: "Slytherin",
+      houseId: 4,
+      imageUrl: "https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/1280x1280/products/88362/91127/Harry-Potter-Slytherin-Crest-Official-wall-mounted-cardboard-cutout-buy-now-at-star__31920.1507640618.jpg?c=2"
   }
+];
 
-  //display buttons on the DOM
-  const buttons = () => {
-    
-    const domString = `
-    <button type="button" class="btn btn-primary" id="All">All</button>
-    <button type="button" class="btn btn-secondary" id="Trinity">Trinity</button>
-    <button type="button" class="btn btn-success" id="Aja">Aja</button>
-    <button type="button" class="btn btn-danger" id="Doc">Doc</button>
-    `;
+const sortHouse = () => {
+  let randomHouse = houseArray[Math.floor(Math.random() * houseArray.length)];
+  return randomHouse
+}
 
-    renderToDom("#buttonContainer", domString);
+
+const renderToDom = (divId, textToPrint) => {
+  const selectedDiv = document.querySelector(divId);
+  selectedDiv.innerHTML = textToPrint;
+};
+
+//  displays welcome btn to DOM 
+const welcomebtn = () => {
+  const btnstring =
+      `<button type="button" id="welcome" class="welcomebtn btn btn-primary btn-lg">START SORTING</button> `
+
+  renderToDom("#start-button", btnstring)
+};
+
+
+const buildForm = ("click", function (){
+  
+  const nameForm =`
+  
+  <form id="nameFormForm" type="submit">
+  <div id="newDivForm">
+  <div class="mb-3">
+  <label for="name"class="form-label">Name</label>
+  <input required type="text"  placeholder="Luna Lovegood" class="form-control" id="name">
+  </div>
+  <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+  </div>
+  </form>
+  `
+
+  renderToDom("#form-div", nameForm) 
+  
+  const formElement = document.querySelector("#form-div");
+  formElement.addEventListener("submit", handleFormSubmit);
+
+
+})
+
+const studentArray = []
+
+const handleFormSubmit = (event) => {
+  event.preventDefault();
+  const {houseName, imageUrl} = sortHouse()
+   let addStudent = {
+    name: document.querySelector("#name").value,
+    house: houseName,
+    imageUrl: imageUrl
   };
 
-    //display form on the DOM
-    const pieForm = () => {
-    
-//Use an object from above to require all necessary info
+  studentArray.push(addStudent);
+  addCardToDom(studentArray);
 
-        const domString = `
-        <form id="pieFormForm">
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input required type="text" class="form-control" id="name" >
-        </div>
-        <div class="mb-3">
-            <label for="ingredients" class="form-label">Ingredients</label>
-            <input required type="text" class="form-control" id="ingredients" >
-        </div>
-        <div class="mb-3">
-            <label for="bakeTemp" class="form-label">Bake Temp</label>
-            <input required type="number" class="form-control" id="bakeTemp" >
-        </div>
-        <div class="mb-3">
-            <label for="drinkPairing" class="form-label">Drink Pairing</label>
-            <input required type="text" class="form-control" id="drinkPairing" >
-        </div>
-        <div class="mb-3">
-            <label for="imageUrl" class="form-label">Image Url</label>
-            <input required type="url" class="form-control" id="imageUrl" >
-        </div>
-        <div class="mb-3">
-            <label for="instructor" class="form-label">Instructor</label>
-            <input required type="text" class="form-control" id="instructor" >
-        </div>
-        <div class="mb-3">
-            <label for="iceCream" class="form-label">Ice Cream</label>
-            <input required type="text" class="form-control" id="iceCream" >
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        `;
-    
-        renderToDom("#pieForm", domString);
-      };
+  document.querySelector("#nameFormForm").reset 
 
-      //Takes info passed into the form and pushes it into the array
-      const handleFormSubmit = (event) => {
-        event.preventDefault();
+}
 
-        const newPie =  {
-            name: document.querySelector("#name").value,
-            ingredients: document.querySelector("#ingredients").value,
-            bakeTemp: document.querySelector("#bakeTemp").value,
-            drinkPairing: document.querySelector("#drinkPairing").value,
-            imageUrl:
-            document.querySelector("#imageUrl").value,
-            instructor: document.querySelector("#instructor").value,
-            iceCream: document.querySelector("#iceCream").value,
-          }
-
-          pies.push(newPie)
-          pieBuilder(pies);
-      };
-
-      //Deletes a specific pie in the array
-      const deletePie = (event) => {
-        
-        const targetType = event.target.type
-        const targetId = event.target.id
-
-        if(targetType === "button") {
-          pies.splice(targetId, 1);
-          pieBuilder(pies);
-        }
-      };
-
-      const pieFormEvents = () => {
-          const pieForElement = document.querySelector("#pieForm");
-          pieForElement.addEventListener("submit", handleFormSubmit);
-      }
-
-  const filterPies = (array, instructor) => {
-      return array.filter(pieObject => pieObject.instructor === instructor);
+const btnClickEvent = (event) =>{
+  if(event.target.id === "welcome"){
+      buildForm();
+      const removeButton = document.querySelector("#start-button")
+      removeButton.remove()
   }
+};
 
-  // Function that adds an event listener to each button and calls funtions when called.
-  const handleButtonClick = (event) => {
-    
-    const pieArray = filterPies(pies, event.target.id)
+const buttonEvents = () => {
+  document
+    .querySelector("#start-button")
+    .addEventListener("click", btnClickEvent);
+  
+    document.querySelector("#first-yr-div").addEventListener("click", expellStudent);
+};
 
-    if (event.target.id === "All" || event.target.id ==="buttonContainer") {  
-        pieBuilder(pies);
-      } else {
-          pieBuilder(filterPies(pies, event.target.id))
-      }
 
-    /*  The code above does this as well but is a shortger solution  
-    //   if (event.target.id === "All") {
-    //     pieBuilder(pies);
-    //   }
-    //   if (event.target.id === "Trinity") {
-    //     pieBuilder(filterPies(pies, "Trinity"));
-    //   }
-    //   if (event.target.id === "Aja") {
-    //     pieBuilder(filterPies(pies, "Aja"));
-    //   }
-    //   if (event.target.id === "Doc") {
-    //     pieBuilder(filterPies(pies, "Doc"));   
-         }
-    */
+
+const addCardToDom= (array) => {
+  let houseCard = ""
+  array.forEach((obj) => {
+  houseCard += 
+  `<div class="card" style="width: 18rem;">
+  <img src=${obj.imageUrl} class="card-img-top" alt="${obj.house}">
+  <div class="card-body">
+      <h5 class="card-title">${obj.house}!</h5>
+      <p class="card-text">${obj.name}</p>
+      <button type="button" class="btn btn-primary">Delete</button>
+  </div>
+  </div>`;
+  })
+
+  renderToDom("#first-yr-div", houseCard);
+  
+}
+
+let voldyArmy = []
+
+const addExpellCardToDom = (array) => {
+  let expellCard = ""
+  array.forEach((obj) => {
+  expellCard += 
+  `<div class="card" style="width: 18rem;">
+  <img src="https://static2.srcdn.com/wordpress/wp-content/uploads/2017/12/Voldemort-and-the-Death-Eaterss.jpg" class="card-img-top" alt="${obj.house}">
+  <div class="card-body">
+      <h5 class="card-title">Dark days are upon us!</h5>
+      <p class="card-text">Sadly, <strong>${obj.name}</strong> has gone to the darkside.</p>
+  </div>
+  </div>`;
+  })
+
+  renderToDom("#voldy-army-div", expellCard);
+  
+}
+
+const expellStudent = (event) => {
+  const targetId = event.target.id
+  const targetType = event.target.type
+
+  if (targetType === "button") {
+      voldyArmy.push(studentArray.splice(targetId, 1)[0])      
+      addCardToDom(studentArray)
+      addExpellCardToDom(voldyArmy)
   }
+}
 
-  // Function that passes html to the DOM
-  const pieBuilder = (piesArray) => {
-      let domString = "";
-      piesArray.forEach((pie, i) => {
-          domString += `
-          <div class="card" style="width: 18rem;">
-          <img src="${pie.imageUrl}" class="card-img-top" alt="${pie.name}">
-          <div class="card-body">
-            <h5 class="card-title">${pie.name}</h5>
-            <p class="card-text">${pie.ingredients}</p>
-            <button type="button" id="${i}" class="btn btn-primary">Delete</button>
-          </div>
-        </div>
-        `;
-      });
+const onit = () => {
+  welcomebtn();
+  buttonEvents();
+}
 
-      renderToDom("#piesContainer", domString);
-  }
-
-  //Handles the button events
-  const buttonEvents = () => {
-    document.querySelector('#buttonContainer')
-    .addEventListener('click', handleButtonClick);
-    
-    document.querySelector("#piesContainer").addEventListener("click", deletePie);
-  }
-
-  const init = () => {
-      //this starts the app
-      buttons(); //Put DOM elements first
-      buttonEvents(); //Event listeners after
-      pieBuilder(pies); 
-      pieForm();
-      pieFormEvents();
-  }
-
-  init();
+onit();
